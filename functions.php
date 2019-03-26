@@ -6,6 +6,9 @@ function login(){
         $user = $_POST['username'];
         $pass = $_POST['password'];
 
+        $user = mysqli_real_escape_string($connection, $user);
+        $pass = mysqli_real_escape_string($connection, $pass);
+
         if($user && $pass){
             echo $user . '<br>' . $pass;
         }else{
@@ -42,6 +45,9 @@ function updateTable(){
         $pass = $_POST['password'];
         $id = $_POST['id'];
 
+        $user = mysqli_real_escape_string($connection, $user);
+        $pass = mysqli_real_escape_string($connection, $pass);
+
         $query = "UPDATE users SET username = '$user', password = '$pass' WHERE id = $id";
 
         $result = mysqli_query($connection, $query);
@@ -60,6 +66,9 @@ function deleteRow(){
         $pass = $_POST['password'];
         $id = $_POST['id'];
 
+        $user = mysqli_real_escape_string($connection, $user);
+        $pass = mysqli_real_escape_string($connection, $pass);
+
         $query = "DELETE FROM users WHERE id = $id";
 
         $result = mysqli_query($connection, $query);
@@ -76,6 +85,10 @@ function createRow(){
         global $connection;
         $user = $_POST['username'];
         $pass = $_POST['password'];
+
+        $user = mysqli_real_escape_string($connection, $user);
+        $pass = mysqli_real_escape_string($connection, $pass);
+
         $query = "INSERT INTO users (username, password) VALUES ('$user','$pass')";
         $result = mysqli_query($connection, $query);
         if(!$result){
@@ -100,5 +113,6 @@ function readDB(){
                 print_r($row);
             }
 }
+
 
 ?>

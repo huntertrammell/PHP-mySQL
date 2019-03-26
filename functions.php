@@ -48,6 +48,12 @@ function updateTable(){
         $user = mysqli_real_escape_string($connection, $user);
         $pass = mysqli_real_escape_string($connection, $pass);
 
+        //encrypt password
+        $hashFormat = "$2y$10$";
+        $salt = "ryfbubxddeobnbubovbddp";
+        $hash_and_salt = $hashFormat . $salt;
+        $pass = crypt($pass, $hash_and_salt);
+
         $query = "UPDATE users SET username = '$user', password = '$pass' WHERE id = $id";
 
         $result = mysqli_query($connection, $query);
@@ -85,9 +91,14 @@ function createRow(){
         global $connection;
         $user = $_POST['username'];
         $pass = $_POST['password'];
-
+        //prevent SQL injection
         $user = mysqli_real_escape_string($connection, $user);
         $pass = mysqli_real_escape_string($connection, $pass);
+        //encrypt password
+        $hashFormat = "$2y$10$";
+        $salt = "ryfbubxddeobnbubovbddp";
+        $hash_and_salt = $hashFormat . $salt;
+        $pass = crypt($pass, $hash_and_salt);
 
         $query = "INSERT INTO users (username, password) VALUES ('$user','$pass')";
         $result = mysqli_query($connection, $query);
